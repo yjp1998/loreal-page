@@ -6,12 +6,14 @@
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@alex_xu/react-slider-vertify": "^1.2.0",
     "@ant-design/icons": "^5.3.7",
     "classnames": "^2.5.1",
+    "gh-pages": "^6.1.1",
     "react-simple-verify": "^1.0.11",
     "umi": "^4.1.10"
   },

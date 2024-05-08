@@ -1,10 +1,10 @@
 export default {
   routes: [
     { path: "/", component: "index" },
-    { path: "/docs", component: "index" },
-    { path: "/home", component: "index" },
-    { path: "/pay", component: "index" },
-    { path: "/login", component: "index" },
+    { path: "#/docs", component: "index" },
+    { path: "#/home", component: "index" },
+    { path: "#/pay", component: "index" },
+    { path: "#/login", component: "index" },
   ],
   npmClient: "pnpm",
   plugins: [
