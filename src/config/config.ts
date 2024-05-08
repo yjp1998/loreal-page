@@ -1,21 +1,23 @@
 export default {
-  history: 'hash',
+  history: {
+    type: 'history',
+  },
   routes: [
-    { path: "/", component: "index" },
-    { path: "/docs", component: "index" },
-    { path: "/home", component: "index" },
-    { path: "/pay", component: "index" },
-    { path: "/login", component: "index" },
+    { path: '/', component: 'index' },
+    { path: '/docs', component: 'index' },
+    { path: '/home', component: 'index' },
+    { path: '/pay', component: 'index' },
+    { path: '/login', component: 'index' },
   ],
-  npmClient: "pnpm",
+  npmClient: 'pnpm',
   plugins: [
     [
-      "umi-plugin-react",
+      'umi-plugin-react',
       {
         antd: true,
         dva: true,
         dynamicImport: false,
-        title: "umi_with_dva_test",
+        title: 'umi_with_dva_test',
         dll: false,
 
         routes: {
@@ -33,7 +35,7 @@ export default {
     // babel-plugin-import
     import: true,
     // less or css, default less
-    style: "less",
+    style: 'less',
     // shortcut of `configProvider.theme`
     // use to configure theme token, antd v5 only
     theme: {},
@@ -43,7 +45,7 @@ export default {
     momentPicker: true,
     // Add StyleProvider for legacy browsers
     styleProvider: {
-      hashPriority: "high",
+      hashPriority: 'high',
       legacyTransformer: true,
     },
   },
