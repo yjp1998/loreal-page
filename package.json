@@ -12,12 +12,15 @@
   "dependencies": {
     "@alex_xu/react-slider-vertify": "^1.2.0",
     "@ant-design/icons": "^5.3.7",
+    "ahooks": "^3.7.11",
+    "big.js": "^6.2.1",
     "classnames": "^2.5.1",
     "gh-pages": "^6.1.1",
     "react-simple-verify": "^1.0.11",
     "umi": "^4.1.10"
   },
   "devDependencies": {
+    "@types/big.js": "^6.2.2",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@umijs/plugins": "^4.1.10",

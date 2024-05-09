@@ -2,6 +2,8 @@ export default {
   history: {
     type: 'history',
   },
+  publicPath: './',
+  // base: '/项目名字',
   routes: [
     { path: '/', component: 'index' },
     { path: '/docs', component: 'index' },

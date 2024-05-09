@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import Slider from '../slider';
 import './index.less';
 
-export const LoginInput = () => {
+export const LoginInput = (props) => {
+  const { loginHome } = props;
   const { Password } = Input;
   const [loginDisabled, setLoginDisabled] = useState(false);
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(1);
   const [tipOpen, setTipOpen] = useState(true);
 
   useEffect(() => {
@@ -22,16 +23,16 @@ export const LoginInput = () => {
   return (
     <>
       <Flex className="container" justify="center" align="center" vertical>
-        <h4 className='login-title'>欧莱雅员工内卖</h4>
+        <h4 className="login-title">欧莱雅员工内卖</h4>
         <Input placeholder="请输入内卖账号" className="input-test" />
         <Password placeholder="请输入密码" className="input-test" />
-        <Slider />
         <button
           disabled={loginDisabled}
           className={classNames('login-btn', {
             'login-btn-able': !loginDisabled,
             'login-btn-disabled': loginDisabled,
           })}
+          onClick={loginHome}
         >
           立即登录
         </button>

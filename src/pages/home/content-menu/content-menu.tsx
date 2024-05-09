@@ -1,5 +1,7 @@
+import { mockData } from '@/mock-data/data';
 import { ShoppingOutlined } from '@ant-design/icons';
-import { Flex, Input, Menu, MenuProps, Popover } from 'antd';
+import { useDebounceFn } from 'ahooks';
+import { Flex, Menu, MenuProps, Popover, Select } from 'antd';
 import { useState } from 'react';
 import './content-menu.less';
 type MenuItem = Required<MenuProps>['items'][number];
@@ -8,8 +10,49 @@ interface ContentMenuProps {
   enterShoppingCar(): void;
 }
 export const ContentMenu = (props) => {
-  const { enterShoppingCar } = props;
+  const { enterShoppingCar, selectSku } = props;
   const [current, setCurrent] = useState('mail');
+
+  const [options, setOptions] = useState([]);
+
+  const api = (input: string) => {
+    // 返回一个新的 Promise 对象
+    return new Promise((resolve, reject) => {
+      // 假设这里有异步操作，比如一个 HTTP 请求
+      setTimeout(() => {
+        const options = mockData
+          .filter(
+            (item) =>
+              item?.name?.includes(input) ||
+              item?.search_alias?.includes(input),
+          )
+          .map((item) => {
+            return {
+              value: `${item.name}_${item.search_alias}`,
+              label: `${
+                item?.name?.includes(input) ? item?.name : item?.search_alias
+              }`,
+            };
+          });
+        console.log(options);
+        resolve(options);
+      }, 400); // 模拟网络延迟
+    });
+  };
+
+  const handleSearch = useDebounceFn(
+    (newValue: string) => {
+      console.log(newValue);
+      if (newValue === '') {
+        setOptions([]);
+      } else {
+        api(newValue).then((data) => {
+          setOptions(data);
+        });
+      }
+    },
+    { wait: 300 },
+  );
   const shoppingCarContent = (
     <Flex
       className="shopping-car-menu"
@@ -32,6 +75,12 @@ export const ContentMenu = (props) => {
     </Flex>
   );
 
+  const handleSelectSku = (select) => {
+    console.log(select);
+    const target = mockData.find((item) => select.includes(item.name));
+    selectSku(target);
+  };
+
   const items: MenuItem[] = [
     {
       label: '首页',
@@ -46,50 +95,6 @@ export const ContentMenu = (props) => {
       key: 'SubMenu',
       popupClassName: 'sub-menu-class',
       children: [
-        {
-          label: (
-            <div>
-              <img
-                src="https://devops01.oss-cn-shanghai.aliyuncs.com/brands/mm.png?x-oss-process=image/format,webp"
-                alt=""
-              />
-              <span>梅森马吉拉</span>{' '}
-            </div>
-          ),
-        },
-        {
-          label: (
-            <div>
-              <img
-                src="https://devops01.oss-cn-shanghai.aliyuncs.com/brands/mm.png?x-oss-process=image/format,webp"
-                alt=""
-              />
-              <span>梅森马吉拉</span>{' '}
-            </div>
-          ),
-        },
-        {
-          label: (
-            <div>
-              <img
-                src="https://devops01.oss-cn-shanghai.aliyuncs.com/brands/mm.png?x-oss-process=image/format,webp"
-                alt=""
-              />
-              <span>梅森马吉拉</span>{' '}
-            </div>
-          ),
-        },
-        {
-          label: (
-            <div>
-              <img
-                src="https://devops01.oss-cn-shanghai.aliyuncs.com/brands/mm.png?x-oss-process=image/format,webp"
-                alt=""
-              />
-              <span>梅森马吉拉</span>{' '}
-            </div>
-          ),
-        },
         {
           label: (
             <div>
@@ -122,9 +127,17 @@ export const ContentMenu = (props) => {
     {
       key: 'search-input',
       label: (
-        <Input
+        <Select
           className="sku-search-input"
           placeholder="请输入您要搜索的内容"
+          showSearch
+          style={{ maxWidth: '200px', minWidth: '200px' }}
+          onSearch={handleSearch.run}
+          onSelect={handleSelectSku}
+          notFoundContent={null}
+          popupMatchSelectWidth={false}
+          options={options}
+          // filterOption={(input, option) => option?.value.includes(input)}
           // suffix={<SearchOutlined />}
         />
       ),

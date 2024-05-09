@@ -2,7 +2,8 @@ import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, MenuProps } from 'antd';
 import './user-menu.less';
 
-export const UserMenu = () => {
+export const UserMenu = (props) => {
+  const { logout } = props;
   const items: MenuProps['items'] = [
     {
       key: '1',
@@ -11,17 +12,17 @@ export const UserMenu = () => {
     {
       key: '2',
       label: '地址管理',
-      disabled: true,
     },
     {
       key: '3',
       label: '修改密码',
-      disabled: true,
     },
     {
       key: '4',
-      danger: true,
       label: '退出登录',
+      onClick: () => {
+        logout();
+      },
     },
   ];
   return (
