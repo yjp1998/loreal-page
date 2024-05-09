@@ -10,7 +10,7 @@ interface ContentMenuProps {
   enterShoppingCar(): void;
 }
 export const ContentMenu = (props) => {
-  const { enterShoppingCar, selectSku } = props;
+  const { enterShoppingCar, selectSku, skuList } = props;
   const [current, setCurrent] = useState('mail');
 
   const [options, setOptions] = useState([]);
@@ -152,7 +152,7 @@ export const ContentMenu = (props) => {
         >
           <div>
             <ShoppingOutlined />
-            我的购物车(0)
+            {`我的购物车（${skuList.length}）`}
           </div>
         </Popover>
       ),

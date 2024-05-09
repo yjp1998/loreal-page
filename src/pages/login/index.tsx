@@ -1,12 +1,15 @@
-import { Flex, Layout } from 'antd';
+import { Flex, Layout, Modal, Spin } from 'antd';
 import bg from '../../assets/before_begining.jpg';
 import logo from '../../assets/logo_new.png';
 
+import { useState } from 'react';
 import { LoginInput } from './components/login-input/index';
 
 export default function LoginPage(props) {
   const { goHome } = props;
   const { Header, Footer, Sider, Content } = Layout;
+
+  const [loading, setLoading] = useState(false);
 
   const headerStyle: React.CSSProperties = {
     textAlign: 'center',
@@ -69,7 +72,7 @@ export default function LoginPage(props) {
   ];
 
   return (
-    <Layout style={layoutStyle}>
+    <Layout id="modal-wrapper-login" style={layoutStyle}>
       <Header style={headerStyle}>
         <Flex
           justify="flex-start"
@@ -87,7 +90,15 @@ export default function LoginPage(props) {
           align="center"
           className="min-h-[100%] w-[960px]"
         >
-          <LoginInput loginHome={goHome} />
+          <LoginInput
+            loginHome={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+                goHome();
+              }, 1000);
+            }}
+          />
         </Flex>
       </Content>
       <Footer style={footerStyle}>
@@ -112,6 +123,33 @@ export default function LoginPage(props) {
           </Flex>
         </Flex>
       </Footer>
+      <Modal
+        mask
+        styles={{
+          mask: {
+            backgroundColor: '#000',
+            opacity: 0.3,
+          },
+        }}
+        footer={null}
+        open={loading}
+        closable={false}
+      >
+        <Flex justify="center" align="center">
+          <Spin
+            style={{
+              width: '960px',
+              height: '350px',
+              margin: '0 auto',
+              padding: '60px 0,',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            size="large"
+          />
+        </Flex>
+      </Modal>
     </Layout>
   );
 }

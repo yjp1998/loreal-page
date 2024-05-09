@@ -43,7 +43,6 @@ export default function HomePage(props) {
   }, [countdown]);
 
   const updateCar = (list: []) => {
-    console.log(list)
     setSkuList(list.slice());
   };
 
@@ -88,7 +87,7 @@ export default function HomePage(props) {
   };
 
   const addCar = (item) => {
-    const skuListCopy = Object.assign(skuList);
+    const skuListCopy = skuList.slice();
     skuListCopy.push(item);
     setSkuList(skuListCopy);
   };
@@ -144,6 +143,7 @@ export default function HomePage(props) {
             }, 1000);
           }}
           selectSku={handleSelectSku}
+          skuList={skuList}
         />
         {loading ? (
           <Spin
