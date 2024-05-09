@@ -10,7 +10,7 @@ import { useState } from 'react';
 import './shopping-car.less';
 
 export const ShoppingCar = (props) => {
-  const { goHome, skuList, updateCar } = props;
+  const { goHome, skuList, updateCar, jiesuan } = props;
 
   const [selectSkus, setSelectSkus] = useState(skuList.map((item) => item.id));
 
@@ -213,7 +213,9 @@ export const ShoppingCar = (props) => {
                 <div className="total">{`总计：¥${totalAmount()}`}</div>
                 <div className="tip">不包含运费</div>
               </div>
-              <div className="settle-btn">去结算</div>
+              <div className="settle-btn" onClick={jiesuan}>
+                去结算
+              </div>
             </Flex>
           </Flex>
         </Flex>

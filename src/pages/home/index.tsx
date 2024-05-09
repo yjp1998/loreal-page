@@ -32,6 +32,8 @@ export default function HomePage(props) {
 
   const [skuList, setSkuList] = useState([]);
 
+  const [showJiesuanPage, setShowJiesuanPage] = useState(false);
+
   useEffect(() => {
     if (countdown > 0) {
       const intervalId = setInterval(() => {
@@ -73,9 +75,11 @@ export default function HomePage(props) {
   const handleSelectSku = (sku) => {
     setLoading(true);
     setTimeout(() => {
+      setShowShoppingCar(false)
       setSelectSku(sku);
+      setShowJiesuanPage(false)
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const handleGoHome = () => {
@@ -83,7 +87,7 @@ export default function HomePage(props) {
     setTimeout(() => {
       setShowShoppingCar(false);
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const addCar = (item) => {
@@ -161,7 +165,19 @@ export default function HomePage(props) {
             skuList={skuList}
             updateCar={updateCar}
             addCar={addCar}
+            jiesuan={() => {
+              setLoading(true);
+              setTimeout(() => {
+                setShowShoppingCar(false);
+                setShowJiesuanPage(true);
+                setLoading(false);
+              }, 1000);
+            }}
           />
+        ) : showJiesuanPage ? (
+          <div style={{ color: '#000', fontSize: '30px' }}>
+            结算操作点支付即可
+          </div>
         ) : selectSku ? (
           <HomeContent
             skuList={skuList}
